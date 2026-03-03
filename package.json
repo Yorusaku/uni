@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "clipboard": "^2.0.11",
+    "dayjs": "^1.11.13",
+    "luch-request": "^3.1.1",
+    "pinia": "^3.0.3"
+  },
+  "devDependencies": {
+    "@dcloudio/vite-plugin-uni": "3.0.0-alpha-3000020210521001",
+    "@vitest/coverage-v8": "^4.0.18",
+    "@vitest/ui": "^4.0.18",
+    "@vueuse/core": "^14.2.1",
+    "lodash-es": "^4.17.23",
+    "uni-mini-router": "^0.1.6",
+    "unocss": "^66.6.4",
+    "unocss-preset-weapp": "^66.0.2",
+    "unplugin-auto-import": "^20.2.0",
+    "unplugin-vue-components": "^30.0.0",
+    "vitest": "^4.0.18",
+    "wot-design-uni": "^1.14.0"
+  }
+}
