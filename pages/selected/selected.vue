@@ -2,7 +2,7 @@
 	<view class="container">
 		<view class="header">
 			<view class="nav-content">
-				<uni-search-bar radius="100" placeholder="猫粮狗粮、宠物零食" clearButton="none" cancelButton="none"
+				<uni-search-bar radius="100" placeholder="猫粮狗粮、宠物零�? clearButton="none" cancelButton="none"
 					style="width: 100%;">
 				</uni-search-bar>
 			</view>
@@ -116,12 +116,12 @@ const swtichCategory=(index:number,category_id:number)=>{
 }
 
 onReachBottom(()=>{
-	console.log("触底了");
+	console.log("触底�?);
 	if(currentPage.value<totalPages.value){
 		getProducts(currentPage.value+1,categories.value[currentCategory.value].id)
 	}
 })
-//购物车
+//购物�?
 const cartCount=ref<number>(0)
 const getCartCount=async()=>{
 	try {
@@ -167,149 +167,3 @@ const goProductDetail=(product:ProductItem)=>{
 	})
 }
 </script>
-
-<style lang="scss" scoped>
-	  .container{
-		  background-color: #f7f7f7;
-		  .header{
-			  background-color: $uni-color-primary;
-			  width: 100%;
-			  .nav-content{
-				  height:88rpx;
-				  display: flex;
-				  align-items: center;
-				  padding: 30rpx 50rpx;
-			  }
-		  }
-		  .content{
-			  .category-section{
-				  background-color: #fff;
-				  border-radius: 16rpx;
-				  height: calc(100vh - 150rpx);
-				  display: flex;
-				  .category-left{
-					  width: 180rpx;
-					  height: 100%;
-					  background-color: #f7f7f7;
-					  .category-item{
-						  height: 100rpx;
-						  line-height: 100rpx;
-						  text-align: center;
-						  font-size: 28rpx;
-						  color: $uni-text-color;
-						  border-bottom:1px solid #eee;
-						  position: relative;
-						  &.active{
-							  background-color: #fff;
-							  color:$uni-color-primary;
-							  font-weight: bold;
-							  &::before{
-								  content: "";
-								  position: absolute;
-								  width: 6rpx;
-								  height: 36rpx;
-								  left: 0;
-								  top:50%;
-								  transform: translateY(-50%);
-								  background-color:$uni-color-primary ;
-								  border-radius: 0 4rpx 4rpx 0; 
-							  }
-							  
-						  }
-					  }
-				  }
-				  .category-right{
-					  flex: 1;
-					  height: 100%;
-					  padding: 20rpx;
-					  .category-title{
-						  font-size: 32rpx;
-						  font-weight: bold;
-						  margin-bottom: 20rpx;
-						  padding: 0 10rpx;
-					  }
-					  .product-list{
-						  display: flex;
-						  flex-wrap: wrap;
-						  .product-item{
-							  width: calc(50% - 20rpx);
-							  margin: 10rpx;
-							  padding: 10rpx;
-							  box-sizing: border-box;
-							  border-radius: 12rpx;
-							  overflow: hidden;
-							  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.2);
-							.product-image{
-								width: 100%;
-								height: 200rpx;
-							}
-							.product-info{
-								padding: 16rpx;
-								.product-name{
-									font-size: 24rpx;
-									color: #333;
-									display: block;
-									margin-bottom:8rpx;
-									white-space: nowrap;
-									overflow: hidden;
-									text-overflow: ellipsis;
-									width: 100%;
-									line-height: 1.4;
-								}
-								.price-row{
-									display: flex;
-									justify-content: space-around;
-									align-items: center;
-									.product-price{
-										font-size: 26rpx;
-										color:$uni-color-primary;
-										font-weight: bold;
-										
-									}
-									.add-cart{
-										width:48rpx;
-										height: 48rpx;
-										background-color:$uni-color-primary ;
-										border-radius: 50%;
-										display: flex;
-										align-items: center;
-										justify-content: center;
-									}
-								}
-							}
-						  }
-					  }
-				  }
-			  }
-		  }
-	  }     
-
-	.float-cart{
-		position: fixed;
-		right: 30rpx;
-		bottom: 100rpx;
-		width: 100rpx;
-		height: 100rpx;
-		border-radius: 50%;
-		background-color: white;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.2);
-		z-index: 999;
-		.cart-badge{
-			position: absolute;
-			top: -6rpx;
-			right: -6rpx;
-			background-color: #ff4d4f;
-			color: #fff;
-			font-size: 24rpx;
-			width: 36rpx;
-			height: 36rpx;
-			border-radius: 50%;
-			line-height: 36rpx;
-			text-align: center;
-			padding: 6rpx;
-		}
-	}
-</style>

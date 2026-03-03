@@ -1,72 +1,68 @@
 <template>
-	<view class="address-page">
+	<view class="min-h-screen bg-[#f5f5f5] pb-[120rpx]">
 		<!--地址列表-->
-		<view class="address-list" v-if="addressList.length">
-			<view class="address-item" v-for="item in addressList" :key="item.id" @click="selectAddress(item)">
-				<view class="address-info">
-					<view class="contact-info">
-						<text class="name">{{item.name}}</text>
-						<text class="phone">{{item.phone}}</text>
-						<text class="default-tag" v-if="item.is_default">默认</text>
+		<view v-if="addressList.length">
+			<view class="bg-white mb-[20rpx] p-[30rpx]" v-for="item in addressList" :key="item.id" @click="selectAddress(item)">
+				<view class="flex-1">
+					<view class="flex items-center mb-[10rpx]">
+						<text class="text-[32rpx] font-bold text-[#333] mr-[20rpx]">{{item.name}}</text>
+						<text class="text-[28rpx] text-[#666] mr-[20rpx]">{{item.phone}}</text>
+						<text class="bg-[#ffce2c] text-[#fff] text-[24rpx] px-[12rpx] py-[4rpx] rounded-[6rpx]" v-if="item.is_default">默认</text>
 					</view>
-					<view class="address-detail">
-						{{item.province}}{{item.city}}{{item.district}}{{item.detail}}
-					</view>
+					<text class="text-[28rpx] text-[#666] leading-14">{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</text>
 				</view>
-				<view class="address-actions">
-					<view class="action-btn" @click.stop="editAddress(item)">
-						<up-icon name="edit-pen" size="20" color="#666" ></up-icon>
+				<view class="flex">
+					<view class="w-[60rpx] h-[60rpx] flex items-center justify-center bg-[#f5f5f5] rounded-full mr-[16rpx]" @click.stop="editAddress(item)">
+						<up-icon name="edit-pen" size="20" color="#666"></up-icon>
 					</view>
-					<view class="action-btn" @click.stop="deleteAddress(item.id)">
+					<view class="w-[60rpx] h-[60rpx] flex items-center justify-center bg-[#f5f5f5] rounded-full" @click.stop="deleteAddress(item.id)">
 						<up-icon name="trash" size="20" color="#666"></up-icon>
 					</view>
 				</view>
 			</view>
-
 		</view>
+		
 		<!--空状态-->
-		<view class="empty-state" v-else>
+		<view class="flex flex-col items-center justify-center py-[100rpx]" v-else>
 			<up-icon name="map" size="60" color="#ccc"></up-icon>
-			<text class="empty-text">您还未添加收货地址哦~</text>
+			<text class="text-[28rpx] text-[#999] mt-[20rpx]">您还未添加收货地址哦~</text>
 		</view>
-		<view class="add-btn" @click="showAddressPopup">
-			<up-icon name="plus" size="20" color="#fff"></up-icon>
-			<text>新增收货地址</text>
-		</view>
+		
 		<!--地址编辑弹窗-->
 		<up-popup :show="showPopup" closeable class="wrap" @close="closePopup">
-			<view class="address-form">
-				<view class="form-title">{{isEdit?"编辑地址":"新增地址"}}</view>
-				<view class="form-item">
-					<text class="label">收货人</text>
-					<input v-model="addressForm.name" placeholder="请输入收货人姓名" class="input"/>
+			<view class="pt-[20rpx] pb-[40rpx]">
+				<view class="text-[36rpx] font-bold text-[#333] text-center mb-[40rpx]">{{isEdit?"编辑地址":"新增地址"}}</view>
+				<view class="flex items-center py-[30rpx] border-b border-[#eee]">
+					<text class="w-[160rpx] text-[28rpx] text-[#333] ml-[20rpx]">收货人</text>
+					<input v-model="addressForm.name" placeholder="请输入收货人姓名" class="flex-1 text-[28rpx] text-[#333]"/>
 				</view>
-				<view class="form-item">
-					<text class="label">手机号</text>
-					<input v-model="addressForm.phone" placeholder="请输入手机号" type="number" maxlength="11" class="input"/>
+				<view class="flex items-center py-[30rpx] border-b border-[#eee]">
+					<text class="w-[160rpx] text-[28rpx] text-[#333] ml-[20rpx]">手机号</text>
+					<input v-model="addressForm.phone" placeholder="请输入手机号" type="number" maxlength="11" class="flex-1 text-[28rpx] text-[#333]"/>
 				</view>
-				<view class="form-item" @click="showRegionPicker">
-					<text class="label">所在地区</text>
-					<view class="region-display">
-						<text v-if="addressForm.region.length">{{addressForm.region.join(" ")}}</text>
-						<text v-else>请选择所在地区</text>
-						<up-icon name="arrow-right" size="16" color="#999" class="right"></up-icon>
+				<view class="flex items-center py-[30rpx] border-b border-[#eee]" @click="showRegionPicker">
+					<text class="w-[160rpx] text-[28rpx] text-[#333] ml-[20rpx]">所在地区</text>
+					<view class="flex-1 flex items-center justify-between">
+						<text v-if="addressForm.region.length" class="text-[28rpx] text-[#666]">{{addressForm.region.join(" ")}}</text>
+						<text v-else class="text-[28rpx] text-[#666]">请选择所在地区</text>
+						<up-icon name="arrow-right" size="16" color="#999" class="mr-[20rpx]"></up-icon>
 					</view>
 				</view>
-				<view class="form-item">
-					<text class="label">详细地址</text>
-					<textarea v-model="addressForm.detail" placeholder="请输入详细地址" class="textarea"/>
+				<view class="flex items-center py-[30rpx] border-b border-[#eee]">
+					<text class="w-[160rpx] text-[28rpx] text-[#333] ml-[20rpx]">详细地址</text>
+					<textarea v-model="addressForm.detail" placeholder="请输入详细地址" class="flex-1 h-[120rpx] text-[28rpx] text-[#333]"/>
 				</view>
-				<view class="form-item">
-					<text class="def">设为默认地址</text>
+				<view class="flex items-center py-[30rpx] border-b border-[#eee]">
+					<text class="text-[28rpx] text-[#333] mr-[20rpx]">设为默认地址</text>
 					<switch :checked="addressForm.is_default" color="#ffce2c" @change="onDefaultChange"></switch>
 				</view>
-				<view class="form-actions">
-					<view class="cancel-btn" @click="closePopup">取消</view>
-					<view class="save-btn" @click="saveAddress">保存</view>
+				<view class="flex pt-[40rpx]">
+					<view class="flex-1 h-[80rpx] bg-[#f5f5f5] text-[#666] text-[32rpx] font-bold rounded-[40rpx] flex items-center justify-center mr-[16rpx]" @click="closePopup">取消</view>
+					<view class="flex-1 h-[80rpx] bg-[#ffce2c] text-[#fff] text-[32rpx] font-bold rounded-[40rpx] flex items-center justify-center" @click="saveAddress">保存</view>
 				</view>
 			</view>
 		</up-popup>
+		
 		<!--省市区联动-->
 		 <up-picker :show="show" ref="uPickerRef" :columns="columns" @confirm="confirm" @change="changeHandler" @cancel="cancel"></up-picker>
 	</view>
@@ -285,163 +281,3 @@ const selectAddress=(item:AddressItem)=>{
 
 
 </script>
-
-<style lang="scss" scoped>
-	.address-page{
-		min-height: 100vh;
-		background-color: #f5f5f5;
-		padding-bottom: 120rpx;
-		.address-list{
-			.address-item{
-				background-color: #fff;
-				margin-bottom: 20rpx;
-				padding: 30rpx;
-				display: flex;
-				align-items: center;
-				.address-info{
-					flex: 1;
-					.contact-info{
-						margin-bottom: 10rpx;
-						.name{
-							font-size: 32rpx;
-							font-weight: bold;
-							color: #333;
-							margin-right: 20rpx;
-						}
-						.phone{
-							font-size: 28rpx;
-							color: #666;
-							margin-right: 20rpx;
-						}
-						.default-tag{
-							background-color: #ffce2c;
-							color: #fff;
-							font-size: 24rpx;
-							padding: 4rpx 12rpx;
-							border-radius: 6rpx;
-						}
-					}
-					.address-detail{
-						font-size: 28rpx;
-						color: #666;
-						line-height: 1.4;
-					}
-				}
-				
-				.address-actions{
-					display: flex;
-					.action-btn{
-						width: 60rpx;
-						height: 60rpx;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						background-color: #f5f5f5;
-						border-radius: 50%;
-						margin-right: 16rpx;
-					}
-				}
-			}
-		}
-		.empty-state{
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			padding: 100rpx 0;
-			.empty-text{
-				margin-top: 20rpx;
-				font-size: 28rpx;
-				color: #999;
-			}
-		}
-		.add-btn{
-			position: fixed;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			height: 120rpx;
-			background-color: #ffce2c;
-			color: #fff;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 32rpx;
-			font-weight: bold;
-			text{margin-left: 16rpx;}
-		}
-
-	}
-	.address-form{
-
-		.form-title{
-			font-size: 36rpx;
-			font-weight: bold;
-			color: #333;
-			text-align: center;
-			margin-bottom: 40rpx;
-			margin-top: 20rpx;
-		}
-		.form-item{
-			display: flex;
-			align-items: center;
-			padding: 30rpx 0;
-			border-bottom: 1rpx solid #eee;
-			.label{
-				width: 160rpx;
-				font-size: 28rpx;
-				color: #333;
-				margin-left: 20rpx;
-			}
-			.input{
-				flex: 1;
-				font-size: 28rpx;
-				color: #333;
-			}
-			.def{margin: 0 20rpx;}
-			.textarea{
-				flex: 1;
-				height: 120rpx;
-				font-size: 28rpx;
-				color: #333;
-			}
-			.region-display{
-				flex: 1;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				font-size: 28rpx;
-				color: #333;
-				text{
-					color: #666
-				}
-				.right{
-					margin-right: 20rpx;
-				}
-			}
-		}
-		.form-actions{
-			display: flex;
-			margin-top:40rpx;
-			.cancel-btn,.save-btn{
-				flex: 1;
-				height: 80rpx;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 32rpx;
-				font-weight: bold;
-				border-radius: 40rpx;
-				margin-right: 16rpx;
-			}
-			.cancel-btn{
-				background-color: #f5f5f5;
-				color: #666;
-			}
-			.save-btn{
-				background-color: #ffce2c;
-				color: #fff;
-			}
-		}
-	}
-</style>

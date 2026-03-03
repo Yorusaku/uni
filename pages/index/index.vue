@@ -1,13 +1,13 @@
 <template>
-	<view class="container">
-		<view class="header" :style="headerStyle">
-			<view class="status-bar"></view>
-			<view class="nav-content" :style="navStyle">
-				<view class="location" @click="startLocation">
+	<view class="bg-f7f7f7">
+		<view :style="headerStyle" class="bg-primary">
+			<view class="w-full h-[var(--status-bar-height)]"></view>
+			<view :style="navStyle" class="flex items-center px-[30rpx] fixed left-0 right-0">
+				<view class="flex items-center mr-[10rpx]" @click="startLocation">
 					<uni-icons type="location" size="28" color="#fff"></uni-icons>
-					<text class="city">{{cityName}}</text>
+					<text class="text-[#fff] text-[28rpx] w-[120rpx] whitespace-nowrap overflow-hidden text-ellipsis">{{cityName}}</text>
 				</view>
-				<view class="search-box">
+				<view class="w-[360rpx]">
 					<uni-search-bar radius="100" placeholder="搜索宠物服务" clearButton="none" cancelButton="none"
 						style="width: 100%;">
 					</uni-search-bar>
@@ -15,81 +15,78 @@
 			</view>
 		</view>
 
-		<view class="content">
-			<swiper class="banner-swiper" indicator-dots autoplay circular indicator-color="rgb(255,255,255,0.6)"
+		<view class="px-[20rpx]">
+			<swiper class="w-full h-[350rpx] mt-[20rpx]" indicator-dots autoplay circular indicator-color="rgb(255,255,255,0.6)"
 				indicator-active-color="#fff">
 				<swiper-item v-for="item in bannerList" :key="item.title">
-					<view class="swiper-item-content">
-						<image :src="item.url" mode="aspectFill"></image>
+					<view class="w-full h-full">
+						<image class="w-full h-full rounded-[16rpx]" :src="item.url" mode="aspectFill"></image>
 					</view>
 				</swiper-item>
 			</swiper>
 
-			<view class="part">
+			<view class="bg-white mt-[20rpx] mb-[24rpx] rounded-[16rpx] p-[30rpx]">
 				<up-scroll-list indicatorColor="#fff0f0" indicatorActiveColor="#ffce2c">
-					<view class="scroll-item" v-for="item in partList" :key="item.title" @click="goMerchant(item.title)">
-						<image class="scroll-image" :src="item.url" mode="aspectFill"></image>
-						<text class="item-title">{{item.title}}</text>
+					<view class="text-center" v-for="item in partList" :key="item.title" @click="goMerchant(item.title)">
+						<image class="w-[90rpx] h-[90rpx] box-border mx-[20rpx]" :src="item.url" mode="aspectFill"></image>
+						<text class="text-[24rpx] text-[#333] whitespace-nowrap overflow-hidden text-ellipsis">{{item.title}}</text>
 					</view>
 				</up-scroll-list>
 			</view>
 
-			<view class="part">
-				<view class="p-4 bg-white">
-					<up-box height="180px" gap="12px" >
-						<template #left>
-							<image class="box-image" src="/static/modules/home/pic1.png" mode="aspectFill"></image>
-						</template>
-						<template #rightTop>
-							<image class="box-image" src="/static/modules/home/pic2.png" mode="aspectFill"></image>
-						</template>
-						<template #rightBottom>
-							<image class="box-image" src="/static/modules/home/pic3.png" mode="aspectFill"></image>
-						</template>
-					</up-box>
-				</view>
-			</view>
-			<view class="exchange-section">
-				<view class="section-title-area">
-					<text class="section-title">省钱速报</text>
-					<text class="section-subtitle">折扣促销每日更新</text>
-					<view class="go-btn">GO</view>
-				</view>
-				<view class="promo-cards">
-					<view class="promo-card">
-						<image class="img-placeholder" src="/static/modules/home/pic4.jpg" mode="aspectFill"></image>
-						<text class="promo-title">到店服务</text>
-						<text class="promo-desc">限时降价</text>
-						<view class="samll-go">GO</view>
-					</view>
-					<view class="promo-card">
-						<image class="img-placeholder" src="/static/modules/home/pic5.jpg" mode="aspectFill"></image>
-						<text class="promo-title">领券中心</text>
-						<text class="promo-desc">618立减</text>
-						<view class="samll-go">GO</view>
-					</view>
-				</view>
+			<view class="bg-white mt-[20rpx] mb-[24rpx] rounded-[16rpx] p-[30rpx]">
+				<up-box height="180px" gap="12px" >
+					<template #left>
+						<image class="w-full h-full rounded-[16rpx]" src="/static/modules/home/pic1.png" mode="aspectFill"></image>
+					</template>
+					<template #rightTop>
+						<image class="w-full h-full rounded-[16rpx]" src="/static/modules/home/pic2.png" mode="aspectFill"></image>
+					</template>
+					<template #rightBottom>
+						<image class="w-full h-full rounded-[16rpx]" src="/static/modules/home/pic3.png" mode="aspectFill"></image>
+					</template>
+				</up-box>
 			</view>
 			
-			<view class="service-card" v-for="item in merchanList" :key="item.merchant_id">
-				<image class="service-img" mode="aspectFill" :src="item.pic"></image>
-				<view class="service-info">
-					<text class="service-name">{{item.merchant_name}}</text>
-					<view class="rate-area">
-						<up-rate v-model="item.rating" readonly  inactive-color="#b2b2b2" active-color="#ffce2c"></up-rate>
-						<text class="rate-text">{{item.rating}}</text>
+			<view class="bg-white rounded-[16rpx] p-[30rpx] mb-[24rpx]">
+				<view class="flex items-center mb-[24rpx]">
+					<text class="text-[32rpx] font-bold text-[#000] mr-[16rpx]">省钱速报</text>
+					<text class="text-[24rpx] text-grey flex-1">折扣促销每日更新</text>
+					<view class="bg-[#ff6b81] rounded-[22rpx] text-[24rpx] text-[#fff] px-[20rpx] py-[4rpx]">GO</view>
+				</view>
+				<view class="flex justify-between">
+					<view class="w-[330rpx] bg-[#f9f9f9] rounded-[16rpx] p-[20rpx] relative" v-for="item in promoList" :key="item.title">
+						<image class="w-full h-[160rpx] rounded-[8rpx] mb-[16px]" :src="item.img" mode="aspectFill"></image>
+						<text class="text-[28rpx] text-[#333] leading-[40rpx] block">{{item.title}}</text>
+						<text class="text-[24rpx] text-[#999] leading-[34rpx] block">{{item.desc}}</text>
+						<view class="absolute right-[20rpx] bottom-[20rpx] bg-[#ff6b81] rounded-[16rpx] text-[20rpx] text-[#fff] px-[16rpx] py-[2rpx]">GO</view>
 					</view>
-					<text class="service-detail">{{item.address}}</text>
-					<view class="tag-area">
-						<view class="tag-item" v-for="tag in item.service.split(',')" :key="tag">{{tag}}</view>
+				</view>
+			</view>
+
+			<view class="bg-white rounded-[16rpx] my-[10rpx] p-[20rpx]" v-for="item in merchanList" :key="item.merchant_id">
+				<image class="w-[160rpx] h-[160rpx] bg-[#ddd] rounded-[8rpx] mr-[20rpx] mt-[8rpx]" mode="aspectFill" :src="item.pic"></image>
+				<view class="flex-1">
+					<text class="text-[32rpx] font-bold text-[#000] leading-[44rpx] block mb-[8rpx]">{{item.merchant_name}}</text>
+					<view class="flex items-center mb-[8rpx]">
+						<up-rate v-model="item.rating" readonly inactive-color="#b2b2b2" active-color="#ffce2c"></up-rate>
+						<text class="text-[28rpx] text-primary ml-[10rpx]">{{item.rating}}</text>
 					</view>
-					<view class="price-area">
-						<view>惠</view>【新客福利】<text>￥19.9</text>代金券可领
+					<text class="text-[24rpx] text-[#999] leading-[34rpx] block mb-[20rpx]">{{item.address}}</text>
+					<view class="flex items-center my-[12rpx]">
+						<view class="text-[18rpx] px-[14rpx] py-[4rpx] rounded-[20rpx] mr-[16rpx] border" 
+							v-for="(tag, index) in item.service.split(',')" :key="tag" 
+							:class="getTagClass(index)">
+							{{tag}}
+						</view>
+					</view>
+					<view class="flex items-center mt-[16rpx] text-[24rpx] text-[#666]">
+						<view class="bg-primary text-[#fff] text-[20rpx] px-[8rpx] py-[2rpx] rounded-[4rpx] mr-[8rpx]">惠</view>
+						【新客福利】<text class="text-[#ff6b81] text-[24rpx] mx-[4rpx]">￥19.9</text>代金券可领
 					</view>
 				</view>
 			</view>
 			<up-divider text="我是有底线的"></up-divider>
-
 		</view>
 	</view>
 </template>
@@ -233,10 +230,16 @@
 		try {
 			const data : any = await get("/home/banner");
 			bannerList.value = data.banner
+			// 初始化促销卡片数据
+			if (data.banner && data.banner.length >= 2) {
+				promoList.value = [
+					{ title: '到店服务', desc: '限时降价', img: '/static/modules/home/pic4.jpg' },
+					{ title: '领券中心', desc: '618立减', img: '/static/modules/home/pic5.jpg' }
+				]
+			}
 		} catch (err) {
 			console.error(err)
 		}
-
 	}
 
 	//功能列表板块
@@ -247,6 +250,23 @@
 			partList.value = data.part
 		} catch (err) {
 			console.error(err)
+		}
+	}
+	
+	//促销卡片列表
+	const promoList = ref<Array<{title: string, desc: string, img: string}>>([])
+	
+	//标签颜色样式
+	const getTagClass = (index: number) => {
+		const colors = [
+			{ text: '#ff6b81', border: '#ff6b81', bg: 'rgba(255, 107, 129, 0.1)' },
+			{ text: '#ffce2c', border: '#ffce2c', bg: 'rgba(255, 206, 44, 0.1)' },
+			{ text: '#19be6b', border: '#19be6b', bg: 'rgba(25, 190, 107, 0.1)' },
+			{ text: '#ff9900', border: '#ff9900', bg: 'rgba(255, 153, 0, 0.1)' }
+		]
+		const color = colors[index % colors.length]
+		return {
+			style: `color: ${color.text}; border-color: ${color.border}; background-color: ${color.bg}`
 		}
 	}
 	
@@ -281,267 +301,3 @@
 
 </script>
 
-<style lang="scss" scoped>
-	.container {
-		background-color: #f7f7f7;
-		.header {
-			background-color: $uni-color-primary;
-
-			.status-bar {
-				width: 100%;
-				height: var(--status-bar-height);
-			}
-
-			.nav-content {
-				display: flex;
-				align-items: center;
-				padding: 0 30rpx;
-				position: fixed;
-				left: 0;
-				right: 0;
-
-				.location {
-					display: flex;
-					align-items: center;
-					margin-right: 10rpx;
-
-					.city {
-						color: #fff;
-						font-size: 28rpx;
-						width: 120rpx;
-						white-space: nowrap;
-						overflow: hidden;
-						text-overflow: ellipsis;
-					}
-				}
-
-				.search-box {
-					width: 360rpx;
-				}
-			}
-		}
-		.content {
-			padding: 0 20rpx;
-			.banner-swiper {
-				width: 100%;
-				height: 350rpx;
-				margin-top: 20rpx;
-
-				.swiper-item-content {
-					width: 100%;
-					height: 100%;
-
-					image {
-						width: 100%;
-						height: 100%;
-						border-radius: 16rpx;
-
-					}
-				}
-			}
-
-			.part {
-				background-color: #fff;
-				margin-top: 20rpx;
-				margin-bottom: 24rpx;
-				border-radius: 16rpx;
-				padding: 30rpx;
-
-				.scroll-item {
-					text-align: center;
-
-					.scroll-image {
-						width: 90rpx;
-						height: 90rpx;
-						box-sizing: border-box;
-						margin: 0 20rpx;
-					}
-
-					.item-title {
-						font-size: 24rpx;
-						color: $uni-text-color;
-						white-space: nowrap;
-						overflow: hidden;
-						text-overflow: ellipsis;
-					}
-				}
-				.box-image{
-					width: 100%;
-					height: 100%;
-					border-radius: 16rpx;
-				}
-
-			}
-			.exchange-section{
-				background-color: #fff;
-				border-radius: 16rpx;
-				padding: 30rpx;
-				margin-bottom: 24rpx;
-				.section-title-area{
-					display: flex;
-					align-items: center;
-					margin-bottom: 24rpx;
-					.section-title{
-						font-size: 32rpx;
-						font-weight: bold;
-						color: #000;
-						margin-right: 16rpx;
-					}
-					.section-subtitle{
-						font-size: 24rpx;
-						color:$uni-text-color-grey ;
-						flex:1
-					}
-					.go-btn{
-						background-color: #ff6b81;
-						border-radius: 22rpx;
-						font-size: 24rpx;
-						color: #fff;
-						padding: 4rpx 20rpx;
-					}
-				}
-				.promo-cards{
-					display: flex;
-					justify-content: space-between;
-					.promo-card{
-						width: 330rpx;
-						background-color: #f9f9f9;
-						border-radius:16rpx;
-						padding: 20rpx;
-						position: relative;
-						.img-placeholder{
-							width: 100%;
-							height: 160rpx;
-							border-radius: 8rpx;
-							margin-bottom: 16px;
-						}
-						.promo-title{
-							font-size: 28rpx;
-							color: $uni-text-color;
-							line-height: 40rpx;
-							display: block;
-						}
-						.promo-desc{
-							font-size: 24rpx;
-							color: #999;
-							line-height: 34rpx;
-							display: block;
-						}
-						.samll-go{
-							position: absolute;
-							right: 20rpx;
-							bottom:20rpx;
-							background-color: #ff6b81;
-							border-radius: 16rpx;
-							font-size: 20rpx;
-							color: #fff;
-							padding: 2rpx 16rpx;
-						}
-					}
-				}
-				
-			}
-			.service-card{
-				display: flex;
-				background-color: #fff;
-				border-radius: 16rpx;
-				margin: 10rpx 0 10rpx 0;
-				padding: 20rpx;
-				.service-img{
-					width: 160rpx;
-					height: 160rpx;
-					background-color: #ddd;
-					border-radius: 8rpx;
-					margin-right: 20rpx;
-					margin-top: 8rpx;
-				}
-				.service-info{
-					flex: 1;
-					.service-name{
-						font-size: 32rpx;
-						font-weight: bold;
-						color: #000;
-						line-height:44rpx;
-						display: block;
-						margin-bottom: 8rpx;
-					}
-					.rate-area{
-						display: flex;
-						align-items: center;
-						margin-bottom: 8rpx;
-						.rate-text{
-							color: $uni-color-primary;
-							font-size: 28rpx;
-							margin-left: 10rpx;
-						}
-						
-					}
-					.service-detail{
-						font-size: 24rpx;
-						color: #999;
-						line-height: 34rpx;
-						display: block;
-						margin-bottom: 20rpx;
-					}
-					.tag-area{
-						display:flex;
-						align-items: center;
-						margin: 12rpx 0;
-						.tag-item{
-							font-size: 18rpx;
-							padding: 4rpx 14rpx;
-							border-radius: 20rpx;
-							margin-right: 16rpx;
-							border:1px solid;
-							&:nth-child(1){
-								color: #ff6b81;
-								border-color: #ff6b81;
-								background-color: rgba(255, 107, 129, 0.1);
-							}
-							&:nth-child(2){
-								color: #ffce2c;
-								border-color: #ffce2c;
-								background-color: rgba(255, 206, 44, 0.1);
-							}
-							&:nth-child(3){
-								color: #19be6b;
-								border-color: #19be6b;
-								background-color: rgba(25, 190, 107, 0.1);
-							}
-							&:nth-child(4){
-								color: #ff9900;
-								border-color: #ff9900;
-								background-color: rgba(255, 153, 0, 0.1);
-							}
-							&:last-child{
-								margin-right: 0;
-							}
-						}
-					}
-					.price-area{
-						display: flex;
-						align-items: center;
-						margin-top: 16rpx;
-						font-size: 24rpx;
-						color:#666;
-						view{
-							background-color: $uni-color-primary;
-							color: #fff;
-							font-size: 20rpx;
-							padding: 2rpx 8rpx;
-							border-radius: 4rpx;
-							margin-right: 8rpx;
-						}
-						text{
-							color: #ff6b81;
-							font-size: 24rpx;
-							margin: 0 4rpx;
-						}
-					}
-					
-				}
-			}
-			
-		}
-	}
-</style>

@@ -10,11 +10,13 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    // ✅ HTTP 集成测试需要 UniApp 环境，仅在 Vitest 中运行底层模块测试
+    testTimeout: 30000,
+    // ✅ LBS 模块测试使用 node 环境，避免 UniApp 依赖问题
     include: [
       'test/http/request-queue.test.ts',
       'test/http/locks/token-refresh-lock.test.ts',
       'utils/sku-graph/__tests__/**/*.test.ts',
+      'test/composables/**/*.test.ts',
     ],
     coverage: {
       provider: 'v8',

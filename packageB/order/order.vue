@@ -35,13 +35,13 @@
 			</view>
 		</view>
 
-		<!--配送方式-->
+		<!--配送方�?->
 		<view class="delivery-section">
-			<view class="section-title">配送方式</view>
+			<view class="section-title">配送方�?/view>
 			<view class="delivery-options">
 				<view class="delivery-item">
-					<text>快递配送</text>
-					<text class="delivery-free">免运费</text>
+					<text>快递配�?/text>
+					<text class="delivery-free">免运�?/text>
 				</view>
 			</view>
 		</view>
@@ -49,7 +49,7 @@
 		<!--订单备注-->
 		<view class="remark-section">
 			<view class="section-title">订单备注</view>
-			<input class="remark-input" placeholder="请输入备注信息(选填)" />
+			<input class="remark-input" placeholder="请输入备注信�?选填)" />
 		</view>
 
 		<!--金额明细-->
@@ -60,7 +60,7 @@
 			</view>
 			<view class="amount-item">
 				<text>运费</text>
-				<text>￥0.00</text>
+				<text>�?.00</text>
 			</view>
 			<view class="amount-item total">
 				<text>实付金额</text>
@@ -70,7 +70,7 @@
 		<!--底部结算-->
 		<view class="settlement-bar">
 			<view class="total-info">
-				<text>合计：</text>
+				<text>合计�?/text>
 				<text class="price">￥{{totalPrice}}</text>
 			</view>
 			<view class="submit-btn" @click="submitOrder">立即支付</view>
@@ -108,7 +108,7 @@
 		getAddress()
 		selPro.value = JSON.parse(options.selPro)
 		uni.$on("addressSelected", (selectedAddress) => {
-			console.log("选中的地址是", selectedAddress)
+			console.log("选中的地址�?, selectedAddress)
 			address.value = selectedAddress //更新页面中显示的地址信息
 		})
 	})
@@ -160,7 +160,7 @@
 				paySign:res.data.paySign,
 				success(payRes) {
 					console.log("支付成功",payRes)
-					//调用接口，发送自己的地址备注信息等
+					//调用接口，发送自己的地址备注信息�?
 					
 				},
 				fail(payError) {
@@ -178,221 +178,3 @@
 		console.log("支付操作")
 	}
 </script>
-
-<style lang="scss" scoped>
-	.order-create {
-		min-height: 100vh;
-		background-color: #f5f5f5;
-		padding-bottom: 120rpx;
-
-		.address-section {
-			background-color: #fff;
-			display: flex;
-			align-items: center;
-			padding: 30rpx;
-			margin-bottom: 20rpx;
-
-			.address-content {
-				flex: 1;
-
-				.user-info {
-					margin-bottom: 10rpx;
-
-					.name {
-						font-size: 32rpx;
-						color: #333;
-						margin-right: 20rpx;
-					}
-
-					.phone {
-						font-size: 28rpx;
-						color: #666;
-					}
-				}
-
-				.address-detail {
-					font-size: 28rpx;
-					color: #666;
-				}
-
-			}
-
-			.no-address {
-				flex: 1;
-				font-size: 28rpx;
-				color: #999;
-			}
-		}
-
-		.goods-section {
-			background-color: #fff;
-			padding: 30rpx;
-			margin-bottom: 20rpx;
-
-			.section-title {
-				font-size: 30rpx;
-				color: #333;
-				margin-bottom: 20rpx;
-			}
-
-			.goods-list {
-				.goods-item {
-					display: flex;
-					margin-bottom: 30rpx;
-
-					.goods-img {
-						width: 160rpx;
-						height: 160rpx;
-						border-radius: 12rpx;
-						margin-right: 20rpx;
-					}
-
-					.goods-info {
-						flex: 1;
-
-						.goods-name {
-							font-size: 28rpx;
-							color: #333;
-							margin-bottom: 10rpx;
-						}
-
-						.goods-spec {
-							font-size: 24rpx;
-							color: #999;
-							margin-bottom: 20rpx;
-						}
-
-						.price-quantity {
-							display: flex;
-							justify-content: space-between;
-							align-items: center;
-
-							.price {
-								color: #ff4d4f;
-								font-size: 32rpx;
-								font-weight: bold;
-							}
-
-							.quantity {
-								font-size: 26rpx;
-								color: #999;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		.delivery-section {
-			background-color: #fff;
-			padding: 30rpx;
-			margin-bottom: 20rpx;
-
-			.section-title {
-				font-size: 30rpx;
-				color: #333;
-				margin-bottom: 20rpx;
-
-			}
-
-			.delivery-options {
-				.delivery-item {
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					padding: 20rpx 0;
-					font-size: 28rpx;
-					color: #333;
-
-					.delivery-free {
-						color: #999;
-					}
-				}
-			}
-		}
-
-		.remark-section {
-			background-color: #fff;
-			padding: 30rpx;
-			margin-bottom: 20rpx;
-
-			.section-title {
-				font-size: 30rpx;
-				color: #333;
-				margin-bottom: 20rpx;
-
-			}
-
-			.remark-input {
-				height: 80rpx;
-				font-size: 28rpx;
-				color: #333;
-			}
-		}
-
-		.amount-section {
-			background-color: #fff;
-			padding: 30rpx;
-			margin-bottom: 20rpx;
-
-			.amount-item {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				margin-bottom: 20rpx;
-				font-size: 28rpx;
-				color: #666;
-
-				&.total {
-					border-top: 2rpx solid #f5f5f5;
-					margin-top: 20rpx;
-					padding-top: 20rpx;
-					color: #333;
-					font-size: 30rpx;
-
-					.price {
-						color: #ff4d4f;
-						font-size: 36rpx;
-						font-weight: bold;
-					}
-				}
-			}
-		}
-
-		.settlement-bar {
-			position: fixed;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			height: 100rpx;
-			padding: 20rpx;
-			background-color: #fff;
-			display: flex;
-			align-items: center;
-			box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.1);
-
-			.total-info {
-				flex: 1;
-				font-size: 28rpx;
-				color: #333;
-
-				.price {
-					color: #ff4d4f;
-					font-size: 36rpx;
-					font-weight: bold;
-				}
-			}
-
-			.submit-btn {
-				width: 240rpx;
-				height: 80rpx;
-				background-color: #ffce2c;
-				color: #fff;
-				border-radius: 40rpx;
-				text-align: center;
-				line-height: 80rpx;
-				font-size: 28rpx;
-			}
-		}
-	}
-</style>

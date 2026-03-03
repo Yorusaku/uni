@@ -1,78 +1,81 @@
 <template>
-	<view class="page">
+	<view class="min-h-screen bg-f5f5f5 pb-[30rpx]">
 		<!--用户信息模块-->
-		<view class="user-info">
-			<view class="avatar-placeholder">
-				<image :src="avatar"></image>
+		<view class="flex bg-white items-center px-[30rpx] py-[40rpx] mb-[20rpx]">
+			<view class="w-[120rpx] h-[120rpx] rounded-full mr-[30rpx] shadow-lg overflow-hidden">
+				<image class="w-full h-full rounded-full border-[4rpx] border-white" :src="avatar"></image>
 			</view>
-			<view class="user-detail">
-				<text class="username">{{userInfo?nickName:"用户暂未登录"}}</text>
-				<text class="user-level" @click="handleLogin" v-if="!userInfo">点击去登录</text>
+			<view class="flex-1">
+				<text class="text-[36rpx] font-bold text-[#333] block mb-[12rpx]">{{userInfo?nickName:"用户暂未登录"}}</text>
+				<text class="bg-[#f8f8f8] px-[22rpx] py-[8rpx] rounded-[24rpx] text-[24rpx] text-[#666]" 
+					@click="handleLogin" 
+					v-if="!userInfo">点击去登录</text>
 			</view>
 		</view>
+		
 		<!--我的订单-->
-		<view class="order-section">
-			<view class="section-header">
-				<text>我的订单</text>
-				<text class="more">查看全部 > </text>
+		<view class="bg-white mb-[20rpx]">
+			<view class="flex justify-between items-center px-[30rpx] py-[30rpx] border-b border-f5f5f5">
+				<text class="text-[32rpx] font-bold text-[#333]">我的订单</text>
+				<text class="text-[24rpx] text-[#999]">查看全部 ></text>
 			</view>
-			<view class="order-types">
-				<view class="order-item">
-					<image src="/static/modules/mine/待付款.png"></image>
-					<text>待付款</text>
+			<view class="flex py-[30rpx]">
+				<view class="flex-1 flex flex-col items-center">
+					<image class="w-[60rpx] h-[60rpx]" src="/static/modules/mine/待付款.png"></image>
+					<text class="text-[24rpx] text-[#666] mt-[10rpx]">待付款</text>
 				</view>
-				<view class="order-item">
-					<image src="/static/modules/mine/待服务.png"></image>
-					<text>待服务</text>
+				<view class="flex-1 flex flex-col items-center">
+					<image class="w-[60rpx] h-[60rpx]" src="/static/modules/mine/待服务.png"></image>
+					<text class="text-[24rpx] text-[#666] mt-[10rpx]">待服务</text>
 				</view>
-				<view class="order-item">
-					<image src="/static/modules/mine/待评价.png"></image>
-					<text>待评价</text>
+				<view class="flex-1 flex flex-col items-center">
+					<image class="w-[60rpx] h-[60rpx]" src="/static/modules/mine/待评价.png"></image>
+					<text class="text-[24rpx] text-[#666] mt-[10rpx]">待评价</text>
 				</view>
-				<view class="order-item">
-					<image src="/static/modules/mine/退款.png"></image>
-					<text>退款/售后</text>
-				</view>
-			</view>
-		</view>
-		<!--我的服务-->
-		<view class="business-section">
-			<view class="section-header">
-				<text>我的服务</text>
-			</view>
-			<view class="business-grid">
-				<view class="business-item">
-					<image src="/static/modules/mine/预约.png"></image>
-					<text>我的预约</text>
-				</view>
-				<view class="business-item">
-					<image src="/static/modules/mine/视频问诊.png"></image>
-					<text>我的问诊</text>
-				</view>
-				<view class="business-item">
-					<image src="/static/modules/mine/拼团.png"></image>
-					<text>我的拼团</text>
-				</view>
-				<view class="business-item">
-					<image src="/static/modules/mine/收藏.png"></image>
-					<text>我的收藏</text>
+				<view class="flex-1 flex flex-col items-center">
+					<image class="w-[60rpx] h-[60rpx]" src="/static/modules/mine/退款.png"></image>
+					<text class="text-[24rpx] text-[#666] mt-[10rpx]">退款/售后</text>
 				</view>
 			</view>
 		</view>
 		
+		<!--我的服务-->
+		<view class="bg-white mb-[20rpx]">
+			<view class="flex justify-between items-center px-[30rpx] py-[30rpx] border-b border-f5f5f5">
+				<text class="text-[32rpx] font-bold text-[#333]">我的服务</text>
+			</view>
+			<view class="flex py-[30rpx]">
+				<view class="flex-1 flex flex-col items-center">
+					<image class="w-[60rpx] h-[60rpx]" src="/static/modules/mine/预约.png"></image>
+					<text class="text-[24rpx] text-[#666] mt-[10rpx]">我的预约</text>
+				</view>
+				<view class="flex-1 flex flex-col items-center">
+					<image class="w-[60rpx] h-[60rpx]" src="/static/modules/mine/视频问诊.png"></image>
+					<text class="text-[24rpx] text-[#666] mt-[10rpx]">我的问诊</text>
+				</view>
+				<view class="flex-1 flex flex-col items-center">
+					<image class="w-[60rpx] h-[60rpx]" src="/static/modules/mine/拼团.png"></image>
+					<text class="text-[24rpx] text-[#666] mt-[10rpx]">我的拼团</text>
+				</view>
+				<view class="flex-1 flex flex-col items-center">
+					<image class="w-[60rpx] h-[60rpx]" src="/static/modules/mine/收藏.png"></image>
+					<text class="text-[24rpx] text-[#666] mt-[10rpx]">我的收藏</text>
+				</view>
+			</view>
+		</view>
+
 		<uni-list>
-			<uni-list-item  title="设置"  showArrow></uni-list-item>
-			<uni-list-item  title="帮助中心" showArrow></uni-list-item>
-			<uni-list-item  title="关于我们" showArrow></uni-list-item>
+			<uni-list-item title="设置" showArrow></uni-list-item>
+			<uni-list-item title="帮助中心" showArrow></uni-list-item>
+			<uni-list-item title="关于我们" showArrow></uni-list-item>
 			<view @click="goAddress">
-				<uni-list-item  title="地址管理" showArrow></uni-list-item>
+				<uni-list-item title="地址管理" showArrow></uni-list-item>
 			</view>
-			
-			<uni-list-item  title="联系我们" showArrow ></uni-list-item>
+
+			<uni-list-item title="联系我们" showArrow></uni-list-item>
 			<view @click="handleLogout">
-				<uni-list-item  title="退出" showArrow ></uni-list-item>
+				<uni-list-item title="退出" showArrow></uni-list-item>
 			</view>
-			
 		</uni-list>
 	</view>
 </template>
@@ -136,113 +139,3 @@ const goAddress=()=>{
 }
 
 </script>
-<style lang="scss" scoped>
-	.section-header{
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 30rpx;
-		border-bottom: 1px solid #f5f5f5;
-		text{
-			font-size: 32rpx;
-			font-weight: bold;
-			color: #333;
-		}
-		.more{
-			font-size: 24rpx;
-			color: #999;
-			
-		}
-	}
-	.page{
-		min-height: 100vh;
-		background-color: #f5f5f5;
-		padding-bottom: 30rpx;
-		.user-info{
-			display: flex;
-			background-color: #fff;
-			align-items: center;
-			padding: 40rpx 30rpx;
-			margin-bottom: 20rpx;
-			.avatar-placeholder{
-				width: 120rpx;
-				height: 120rpx;
-				border-radius: 50%;
-				margin-right: 30rpx;
-				box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
-				image{
-					width: 100%;
-					height: 100%;
-					border-radius: 50%;
-					border: 4rpx solid #fff;
-				}
-			}
-			.user-detail{
-				.username{
-					font-size: 36rpx;
-					font-weight: bold;
-					color: #333;
-					display: block;
-					margin-bottom: 12rpx;
-				}
-				.user-level{
-					background-color: #f8f8f8;
-					padding: 8rpx 22rpx;
-					border-radius: 24rpx;
-					font-size: 24rpx;
-					color: #666;
-				}
-			}
-		}
-		.order-section{
-			background-color: #fff;
-			margin-bottom: 20rpx;
-
-			.order-types{
-				display: flex;
-				padding: 30rpx 0;
-				.order-item{
-					flex: 1;
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					image{
-						width:60rpx;
-						height: 60rpx;
-					}
-					text{
-						font-size: 24rpx;
-						color: #666;
-						margin-top: 10rpx;
-					}
-					
-				}
-			}
-		}
-		.business-section{
-			background-color: #fff;
-			margin-bottom: 20rpx;
-			.business-grid{
-				display: flex;
-				padding: 30rpx 0;
-				.business-item{
-					flex: 1;
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					image{
-						width:60rpx;
-						height: 60rpx;
-					}
-					text{
-						font-size: 24rpx;
-						color: #666;
-						margin-top: 10rpx;
-					}
-				}
-			}
-		}
-		
-	}
-	       
-</style>
