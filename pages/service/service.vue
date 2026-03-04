@@ -1,52 +1,73 @@
 <template>
 	<view class="page">
-		<up-notice-bar text="您有一份宠物大礼包待领取，请及时领�? mode="closable"></up-notice-bar>
-		<view class="service-list">
-			<view class="service-item" v-for="item in serviceList" :key="item.name">
-				<view class="icon" :style="{background:item.bgColor}">
-					<image :src="item.icon" mode="aspectFill"></image>
+		<!-- 骨架屏：公告栏 -->
+		<us-skeleton :loading="isLoading" type="default" :rows="1">
+			<up-notice-bar text="您有一份宠物大礼包待领取，请及时领取" mode="closable"></up-notice-bar>
+		</us-skeleton>
+
+		<!-- 骨架屏：服务列表 -->
+		<us-skeleton :loading="isLoading" type="list" :list-count="8">
+			<view class="service-list">
+				<view class="service-item" v-for="item in serviceList" :key="item.name">
+					<view class="icon" :style="{background:item.bgColor}">
+						<image :src="item.icon" mode="aspectFill" lazy-load></image>
+					</view>
+					<text class="name">{{item.name}}</text>
 				</view>
-				<text class="name">{{item.name}}</text>
 			</view>
-		</view>
-		<view class="pet-images">
-			<image src="/static/modules/service/dog.jpg" mode="aspectFill"></image>
-			<image src="/static/modules/service/cat.jpg" mode="aspectFill"></image>
-		</view>
+		</us-skeleton>
+
+		<!-- 骨架屏：宠物图片 -->
+		<us-skeleton :loading="isLoading" type="default" :rows="2">
+			<view class="pet-images">
+				<image src="/static/modules/service/dog.jpg" mode="aspectFill" lazy-load></image>
+				<image src="/static/modules/service/cat.jpg" mode="aspectFill" lazy-load></image>
+			</view>
+		</us-skeleton>
+
 		<view class="fish-bone">
-			<image src="/static/modules/service/鱼骨�?png" mode="aspectFit"></image>
+			<image src="/static/modules/service/鱼骨.png" mode="aspectFit" lazy-load></image>
 			<text>宠物领养</text>
 		</view>
-		<scroll-view scroll-x class="scroll-view">
-			<view class="scroll-view-item" v-for="item in adoptList" :key="item.id">
-				<image :src="item.pic" mode="aspectFill"></image>
-				<text>{{item.location}}</text>
-				<text>{{item.name}}</text>
-				<text>待领养：{{item.count}}�?/text>
-				<up-rate v-model="item.rate" readonly inactive-color="#b2b2b2" active-color="#ffce2c" activeIcon="heart-fill" inactiveIcon="heart"></up-rate>
-			</view>	
-		</scroll-view>
+
+		<!-- 骨架屏：领养列表 -->
+		<us-skeleton :loading="adoptList.length === 0" type="list" :list-count="3">
+			<scroll-view scroll-x class="scroll-view">
+				<view class="scroll-view-item" v-for="item in adoptList" :key="item.id">
+					<image :src="item.pic" mode="aspectFill" lazy-load></image>
+					<text>{{item.location}}</text>
+					<text>{{item.name}}</text>
+					<text>待领养：{{item.count}}</text>
+					<up-rate v-model="item.rate" readonly inactive-color="#b2b2b2" active-color="#ffce2c" activeIcon="heart-fill" inactiveIcon="heart"></up-rate>
+				</view>
+			</scroll-view>
+		</us-skeleton>
+
 		<view class="fish-bone">
-			<image src="/static/modules/service/鱼骨�?png" mode="aspectFit"></image>
+			<image src="/static/modules/service/鱼骨.png" mode="aspectFit" lazy-load></image>
 			<text>附近商家</text>
 		</view>
-		<view class="service-card" v-for="item in merchanList" :key="item.merchant_id">
-			<image class="service-img" mode="aspectFill" :src="item.pic"></image>
-			<view class="service-info">
-				<text class="service-name">{{item.merchant_name}}</text>
-				<view class="rate-area">
-					<up-rate v-model="item.rating" readonly  inactive-color="#b2b2b2" active-color="#ffce2c"></up-rate>
-					<text class="rate-text">{{item.rating}}</text>
-				</view>
-				<text class="service-detail">{{item.address}}</text>
-				<view class="tag-area">
-					<view class="tag-item" v-for="tag in item.service.split(',')" :key="tag">{{tag}}</view>
-				</view>
-				<view class="price-area">
-					<view>�?/view>【新客福利�?text>�?9.9</text>代金券可�?
+
+		<!-- 骨架屏：商家列表 -->
+		<us-skeleton :loading="merchanList.length === 0" type="list" :list-count="3">
+			<view class="service-card" v-for="item in merchanList" :key="item.merchant_id">
+				<image class="service-img" mode="aspectFill" :src="item.pic" lazy-load></image>
+				<view class="service-info">
+					<text class="service-name">{{item.merchant_name}}</text>
+					<view class="rate-area">
+						<up-rate v-model="item.rating" readonly  inactive-color="#b2b2b2" active-color="#ffce2c"></up-rate>
+						<text class="rate-text">{{item.rating}}</text>
+					</view>
+					<text class="service-detail">{{item.address}}</text>
+					<view class="tag-area">
+						<view class="tag-item" v-for="tag in item.service.split(',')" :key="tag">{{tag}}</view>
+					</view>
+					<view class="price-area">
+						<view>￥</view>【新客福利】<text class="text-[#ff6b81] text-[24rpx] mx-[4rpx]">￥19.9</text>代金券可领
+					</view>
 				</view>
 			</view>
-		</view>
+		</us-skeleton>
 		<up-divider text="我是有底线的"></up-divider>
 	</view>
 </template>
@@ -55,7 +76,10 @@
 	import { ref } from 'vue';
 	import { get } from '../../utils/http';
 	import {onLoad,onReachBottom} from "@dcloudio/uni-app"
-	
+
+	// 骨架屏状态
+	const isLoading = ref(true)
+
 	interface AdoptItem{
 		id:number;
 		count:number;
@@ -154,6 +178,9 @@
 	})
 	onLoad(()=>{
 		getAdoptList()
-		getMerchanList(1)
+		getMerchanList(1).then(() => {
+			// 数据加载完成，隐藏骨架屏
+			isLoading.value = false
+		})
 	})
 </script>

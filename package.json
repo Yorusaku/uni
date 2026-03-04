@@ -12,6 +12,7 @@
     "@vueuse/core": "^14.2.1",
     "jsdom": "^28.1.0",
     "lodash-es": "^4.17.23",
+    "tsx": "^4.21.0",
     "uni-mini-router": "^0.1.6",
     "unocss": "^66.6.4",
     "unocss-preset-weapp": "^66.0.2",
@@ -19,5 +20,8 @@
     "unplugin-vue-components": "^30.0.0",
     "vite": "^7.3.1",
     "vitest": "^4.0.18"
+  },
+  "scripts": {
+    "size": "tsx scripts/check-bundle-size.ts"
   }
 }

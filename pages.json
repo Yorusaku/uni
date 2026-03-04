@@ -33,13 +33,42 @@
 		},
 		{
 			"path" : "pages/login/login",
-			"style" : 
+			"style" :
 			{
 				"navigationBarTitleText" : "登录"
+			}
+		},
+		{
+			"path" : "packageC/lbs/lbs",
+			"style" :
+			{
+				"navigationBarTitleText" : "附近商家"
 			}
 		}
 	],
 	"subPackages": [
+		{
+			"root":"packageD",
+			"pages": [
+				{
+					"path": "product-spec-popup/product-spec-popup",
+					"style": {
+						"navigationBarTitleText": "选择规格"
+					}
+				}
+			]
+		},
+		{
+			"root":"packageC",
+			"pages": [
+				{
+					"path": "lbs/lbs",
+					"style": {
+						"navigationBarTitleText": "附近商家"
+					}
+				}
+			]
+		},
 		{
 			"root":"packageA",
 			"pages": [
@@ -82,9 +111,21 @@
 		}
 	],
 	"preloadRule":{
+		"pages/index/index":{
+			"network": "all",
+			"packages":["packageA", "packageB", "packageC"]
+		},
+		"pages/cart/cart":{
+			"network": "all",
+			"packages":["packageB"]
+		},
 		"pages/selected/selected":{
 			"network": "wifi",
 			"packages":["packageA"]
+		},
+		"pages/me/me":{
+			"network": "all",
+			"packages":["packageB"]
 		}
 	},
 	"easycom": {
