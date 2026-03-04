@@ -117,5 +117,10 @@ export async function getUserInfo(): Promise<UserInfo> {
 
   const response = await httpClient.get<LoginResponse>('/api/user/info');
 
-  return response.data?.userInfo ?? throw new Error('[Auth] 获取用户信息失败');
+  // ✅ 卫语句：检查用户信息是否存在
+  if (!response.data?.userInfo) {
+    throw new Error('[Auth] 获取用户信息失败');
+  }
+
+  return response.data.userInfo;
 }

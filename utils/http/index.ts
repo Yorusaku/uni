@@ -1,30 +1,13 @@
-import {RequestConfig} from "./types"
-import { requestInterceptor,transformResponse } from "./interceptors"
-const request=(config:RequestConfig)=>{
-	const processedConfig= requestInterceptor(config)
-	//const url=`http://localhost:3000${processedConfig.url}`
-	const url=`https://www.liuliuzhua.cn${processedConfig.url}`
-	return new Promise((resolve,reject)=>{
-		uni.request({
-			url,
-			method:processedConfig.method || "GET",
-			data:processedConfig.data,
-			header:processedConfig.header,
-			success(res) {
-				try{
-					resolve(transformResponse(res))
-				}catch(error){
-					reject(error)
-				}
-			},
-			fail(err) {
-				reject("请求失败")
-			}
-		})
-	})
-}
+/**
+ * 🟢 HTTP 模块统一导出（alova 版本）
+ * 说明：重构阶段，统一导出所有 HTTP 相关 API，类型洁癖
+ */
 
-export const get=(url:string,data?:any)=>request({url,method:"GET",data})
+// ✅ 核心客户端 API
+export { get, post, setAuthToken, clearAuthToken, getHttpClient, setRefreshTokenApi } from './client';
 
-export const post=(url:string,data?:any)=>request({url,method:"POST",data})
+// ✅ 类型定义
+export type { ResponseData, SuccessResponse, ErrorResponse, RequestConfig } from './types';
 
+// ✅ 重新导出 API 模块（等待业务方迁移）
+export * as auth from './api/auth';

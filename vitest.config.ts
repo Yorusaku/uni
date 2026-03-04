@@ -12,11 +12,14 @@ export default defineConfig({
     environment: 'node',
     testTimeout: 30000,
     // ✅ LBS 模块测试使用 node 环境，避免 UniApp 依赖问题
+    // ✅ 网络层测试（alova 迁移）使用 node 环境，避免 UniApp 依赖问题
     include: [
-      'test/http/request-queue.test.ts',
-      'test/http/locks/token-refresh-lock.test.ts',
+      'test/http/*.test.ts',
       'utils/sku-graph/__tests__/**/*.test.ts',
       'test/composables/**/*.test.ts',
+    ],
+    setupFiles: [
+      path.resolve(__dirname, 'test/setup-mocks.ts'),
     ],
     coverage: {
       provider: 'v8',
